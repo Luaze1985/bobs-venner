@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOBs Sekt - Festinvitasjon</title>
+    <style>
+        body {
+            background-color: #000000;
+            color: #ff0000;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 10px;
+            text-align: center;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid #ff0000;
+            padding: 15px;
+        }
+        
+        h1 {
+            font-size: 28px;
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        
+        .bob-logo {
+            width: 100px;
+            height: 80px;
+            margin: 15px auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .intro {
+            font-size: 18px;
+            margin: 20px 0;
+        }
+        
+        .divider {
+            border-top: 1px solid #ff0000;
+            margin: 20px 0;
+        }
+        
+        .menu {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .menu-item {
+            padding: 10px 15px;
+            border: 2px solid #ff0000;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .menu-item:hover, .menu-item.active {
+            background-color: rgba(255, 0, 0, 0.2);
+        }
+        
+        .section {
+            display: none;
+            text-align: left;
+            padding: 10px;
+        }
+        
+        .section.active {
+            display: block;
+        }
+        
+        .info-title {
+            font-size: 24px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .info-box {
+            border: 2px dotted #ff0000;
+            padding: 15px;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .info-box h3 {
+            font-size: 20px;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .info-box p {
+            font-size: 16px;
+        }
+        
+        .goal-list, .rule-list {
+            text-align: left;
+            padding-left: 20px;
+        }
+        
+        .goal-list li, .rule-list li {
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .family-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .family-button {
+            padding: 12px 20px;
+            border: 2px solid #ff0000;
+            background-color: #200000;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .family-button:hover, .family-button.active {
+            background-color: rgba(255, 0, 0, 0.3);
+            transform: scale(1.05);
+        }
+        
+        .family-content {
+            display: none;
+            margin-top: 20px;
+            border: 1px dashed #ff0000;
+            padding: 15px;
+            text-align: left;
+        }
+        
+        .family-content.active {
+            display: block;
+        }
+        
+        .family-info {
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        
+        .family-motto {
+            font-weight: bold;
+            margin-top: 15px;
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .member-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+        
+        .member-table th, .member-table td {
+            border: 1px solid #ff0000;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        .member-table th {
+            background-color: #300000;
+            font-weight: bold;
+        }
+        
+        .member-table tr:nth-child(even) {
+            background-color: #1a0000;
+        }
+        
+        .all-roles-section {
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 1px dashed #ff0000;
+        }
+        
+        .all-roles-section:last-child {
+            border-bottom: none;
+        }
+        
+        .info-section {
+            margin-top: 30px;
+        }
+        
+        .ceremony-text {
+            font-size: 20px;
+            font-style: italic;
+            margin: 25px 0;
+            text-align: center;
+            line-height: 1.8;
+        }
+        
+        .sidebar {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .sidebar-item {
+            flex: 1;
+            min-width: 300px;
+            border: 1px solid #ff0000;
+            padding: 15px;
+        }
+        
+        @media (max-width: 600px) {
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .menu {
+                flex-direction: column;
+            }
+            
+            .menu-item {
+                width: 90%;
+                margin: 0 auto;
+            }
+            
+            .sidebar {
+                flex-direction: column;
+            }
+            
+            .member-table {
+                font-size: 12px;
+            }
+            
+            .member-table th, .member-table td {
+                padding: 5px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Velkommen til BOBs Sekt</h1>
+        
+        <!-- BOB Logo SVG -->
+        <div class="bob-logo">
+            <svg width="100" height="80" viewBox="0 0 100 80" xmlns="http://www.w3.org/2000/svg">
+                <path d="M50 10 L80 40 L50 70 L20 40 L50 10 Z" stroke="#ffffff" stroke-width="5" fill="none"/>
+                <path d="M20 40 L10 30 L30 10" stroke="#ffffff" stroke-width="5" fill="none"/>
+                <path d="M80 40 L90 30 L70 10" stroke="#ffffff" stroke-width="5" fill="none"/>
+            </svg>
+        </div>
+        
+        <p class="intro">Forbered deg på en reise gjennom tid og dimensjoner.</p>
+        <p class="intro">Din familie er utvalgt til å delta i BOBs hellige ritual.</p>
+        
+        <div class="ceremony-text">
+            Sektleder Lars Erik fyller 40. BOB krever et offer og nye utvalgte må tre frem.<br>
+            <strong>Hvem skal bli ny leder og Bobs brud?</strong>
+        </div>
+        
+        <div class="divider"></div>
+        
+        <div class="menu">
+            <div class="menu-item active" onclick="showSection('hovedside', this)">Hovedside</div>
+            <div class="menu-item" onclick="showSection('sekten', this)">Sektens Mål</div>
+            <div class="menu-item" onclick="showSection('bud', this)">BOBs 5 Bud</div>
+            <div class="menu-item" onclick="showSection('lag', this)">Lag og Roller</div>
+        </div>
+        
+        <!-- Hovedside -->
+        <div id="hovedside" class="section active">
+            <div class="info-title">Om BOBs hellige ritual</div>
+            <p>Velkommen til en kveld fylt med intriger, maktkamp og hemmeligheter. Når Lars Erik nå trer tilbake, trenger BOB en ny leder og en brud til å føre sekten videre. Bare den mest hengivne, snikete og maktglade vil bli valgt.</p>
+            
+            <div class="sidebar">
+                <div class="sidebar-item">
+                    <h3>Hva venter deg</h3>
+                    <p>Gjennom kveldens prøvelser vil din families lojalitet, sluhet og evne til å vinne for enhver pris bli testet. Bare de som er villige til å ofre alt for BOB kan håpe på seier.</p>
+                </div>
+                <div class="sidebar-item">
+                    <h3>Praktisk informasjon</h3>
+                    <ul>
+                        <li><strong>MIDDAG:</strong> Det spises mellom 18.00 og 19.30</li>
+                        <li><strong>STED:</strong> Farsund by</li>
+                        <li><strong>OPPLEGG:</strong> Starter ca. 19:30. Seneste oppmøtetid</li>
+                        <li><strong>DRIKKE:</strong> Ta med egen drikke</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Sekten seksjon -->
+        <div id="sekten" class="section">
+            <div class="info-title">Sektens overordna mål</div>
+            <ul class="goal-list">
+                <li>Full kontroll over Farsund (og verden) der de sterke styrer og personlig vinning er lov.</li>
+                <li>Identifisere og belønne de mest hengivne og lojale medlemmer.</li>
+                <li>Finne de Verdige som skal få leve evig med Bob.</li>
+            </ul>
+            
+            <div class="info-title">Mål med spillet (For deltakerne)</div>
+            <ul class="goal-list">
+                <li>Hevde din families dominans: Samle flest poeng og status gjennom lekene.</li>
+                <li>Overlev kveldens prøvelser: Unngå å bli avslørt som svak eller illojal.</li>
+            </ul>
+            
+            <div class="info-title">Dersom familien (laget) gjør det bra</div>
+            <ul class="goal-list">
+                <li>Bli Bobs nye leder og bli valgt av eldsterådet som Lars Eriks etterfølger til du er 40 år, og deretter lev evig i Bobs "Jakt-hytte".</li>
+                <li>Bli valgt som Bobs Brud og lev evig i Bobs "koneklubb".</li>
+            </ul>
+            
+            <div class="info-title">Overordna regel</div>
+            <ul class="rule-list">
+                <li>Din primære lojalitet er til BOB, eldsterådet og sektens mål.</li>
+                <li>Verden er uforutsigbar, slik BOB vil ha det. Den som tilpasser seg prøvelser og utnytter uventede vendinger, vil seire.</li>
+            </ul>
+        </div>
+        
+        <!-- BOBs 5 Bud seksjon -->
+        <div id="bud" class="section">
+            <div class="info-title">BOBs 5 bud</div>
+            <ol class="rule-list">
+                <li>Sett Egne Behov Først.</li>
+                <li>Bruk Sladder Som Ditt Våpen.</li>
+                <li>Vis Din Dominans, Krev Din Plass.</li>
+                <li>Innrøm Aldri Feil, Vis Aldri Tvil.</li>
+                <li>Nyt Andres Nederlag.</li>
+            </ol>
+        </div>
+        
+        <!-- Lag og Roller seksjon -->
+        <div id="lag" class="section">
+            <div class="info-title">Lag og Roller</div>
+            
+            <div class="family-buttons">
+                <div id="alle-btn" class="family-button active" onclick="showFamily('alle', this)">ALLE LAG</div>
+                <div id="abrahamsen-btn" class="family-button" onclick="showFamily('abrahamsen', this)">ABRAHAMSEN</div>
+                <div id="skauggaard-btn" class="family-button" onclick="showFamily('skauggaard', this)">SKAUGGÅRD</div>
+                <div id="haaland-btn" class="family-button" onclick="showFamily('haaland', this)">HAALAND</div>
+                <div id="kvinlaug-btn" class="family-button" onclick="showFamily('kvinlaug', this)">KVINLAUG</div>
+                <div id="lunde-btn" class="family-button" onclick="showFamily('lunde', this)">LUNDE</div>
+            </div>
+            
+            <!-- Alle lag oversikt -->
+            <div id="alle" class="family-content active">
+                <h2>Lagene i BOBs Sekt</h2>
+                
+                <div class="all-roles">
+                    <!-- ABRAHAMSEN -->
+                    <div class="all-roles-section">
+                        <h3>ABRAHAMSEN</h3>
+                        <p class="family-motto">"Vi ser alt for BOB"</p>
+                        
+                        <table class="member-table">
+                            <thead>
+                                <tr>
+                                    <th>Navn</th>
+                                    <th>Rolle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Alf</td><td>Innviklet Ungdom</td></tr>
+                                <tr><td>Anja</td><td>Fasade Representant</td></tr>
+                                <tr><td>Bente</td><td>Informasjonssøker Øyne</td></tr>
+                                <tr><td>Eirik Rustad</td><td>Politisk Ambisjon</td></tr>
+                                <tr><td>Elin V</td><td>Observatør Lokalavisen</td></tr>
+                                <tr><td>Hanne S H</td><td>Informasjons-kanal Informasjon</td></tr>
+                                <tr><td>Knut Erik</td><td>Informant Overvåker</td></tr>
+                                <tr><td>Åsmund</td><td>Informant Lojal</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- SKAUGGÅRD -->
+                    <div class="all-roles-section">
+                        <h3>SKAUGGÅRD</h3>
+                        <p class="family-motto">"Penger er makt, makt er BOB"</p>
+                        
+                        <table class="member-table">
+                            <thead>
+                                <tr>
+                                    <th>Navn</th>
+                                    <th>Rolle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Camilla</td><td>Brud Kandidat</td></tr>
+                                <tr><td>Charlotte</td><td>Vet mangt</td></tr>
+                                <tr><td>Christer Voreland</td><td>Ressurssterk Pengemann</td></tr>
+                                <tr><td>Eirik Alsaker</td><td>Ambisjon Penger</td></tr>
+                                <tr><td>Jørgen Skauge</td><td>Pengemann Risiko</td></tr>
+                                <tr><td>Knut B</td><td>Sikkerhet Diskret</td></tr>
+                                <tr><td>Magnus</td><td>Muskel Braker</td></tr>
+                                <tr><td>Martin</td><td>Ressurs Fikser</td></tr>
+                                <tr><td>Nikolai</td><td>Eldste råd</td></tr>
+                                <tr><td>Petter</td><td>Hjelper Betrodde</td></tr>
+                                <tr><td>Runar</td><td>Matleverandør Uenige</td></tr>
+                                <tr><td>Silje</td><td>Brud Kandidat</td></tr>
+                                <tr><td>Thomas B</td><td>Papirflytter Shipping</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- HAALAND -->
+                    <div class="all-roles-section">
+                        <h3>HAALAND</h3>
+                        <p class="family-motto">"Bare de sterke overlever for BOB"</p>
+                        
+                        <table class="member-table">
+                            <thead>
+                                <tr>
+                                    <th>Navn</th>
+                                    <th>Rolle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Anders S</td><td>Muskel Rekruttør</td></tr>
+                                <tr><td>Christian Skollevold</td><td>Muskel Utenfor</td></tr>
+                                <tr><td>Christine Vatne</td><td>Praktisk Hjelper</td></tr>
+                                <tr><td>Esben S</td><td>Muskel Loyal</td></tr>
+                                <tr><td>Hilde Knutsen</td><td>Rekruttør Sosial</td></tr>
+                                <tr><td>Johnny</td><td>Muskel Voldsom</td></tr>
+                                <tr><td>Maria S</td><td>Rekruttering Trenerrollen</td></tr>
+                                <tr><td>Oscar</td><td>Beskytter Høyre</td></tr>
+                                <tr><td>Rolf</td><td>Rekruttør Støtte</td></tr>
+                                <tr><td>Sven Bouwman</td><td>Skjult Kjenner</td></tr>
+                                <tr><td>Sverre Juul Hansen</td><td>Hjelper Kjenner</td></tr>
+                                <tr><td>Tim B</td><td>Ivrig Rekrutt</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- KVINLAUG -->
+                    <div class="all-roles-section">
+                        <h3>KVINLAUG</h3>
+                        <p class="family-motto">"Det praktiske arbeidet er BOBs arbeid"</p>
+                        
+                        <table class="member-table">
+                            <thead>
+                                <tr>
+                                    <th>Navn</th>
+                                    <th>Rolle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Alena</td><td>Ung Ambisiøs</td></tr>
+                                <tr><td>Arild Langseth</td><td>Praktisk Logistikk</td></tr>
+                                <tr><td>Elin PL</td><td>Praktisk Hjemmeværende</td></tr>
+                                <tr><td>Jørn André Berg</td><td>Praktisk Verksted</td></tr>
+                                <tr><td>Kjetil S</td><td>Hjelper Fotsoldat</td></tr>
+                                <tr><td>Margrete</td><td>Støttespiller Jørn</td></tr>
+                                <tr><td>Sarah S</td><td>Fasadevokter Galleriet</td></tr>
+                                <tr><td>Stein Kåre</td><td>Bygge vedlikeholde</td></tr>
+                                <tr><td>Stian Brødsjø</td><td>Hjelper Kvinlaug</td></tr>
+                                <tr><td>Terje Bergh</td><td>Transportør Fisker</td></tr>
+                                <tr><td>Thomas Grimsby</td><td>Hjelper Kvinlaug</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <!-- LUNDE -->
+                    <div class="all-roles-section">
+                        <h3>LUNDE</h3>
+                        <p class="family-motto">"BOBs jord er hellig"</p>
+                        
+                        <table class="member-table">
+                            <thead>
+                                <tr>
+                                    <th>Navn</th>
+                                    <th>Rolle</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr><td>Arne Carlsen</td><td>Offentlig Stemme</td></tr>
+                                <tr><td>Beate</td><td>Ung Tvilende</td></tr>
+                                <tr><td>Benedicte</td><td>Bonde Praktisk</td></tr>
+                                <tr><td>Daniel Kumar</td><td>Infiltrert Informant</td></tr>
+                                <tr><td>Esben Er</td><td>Unnvikende Tvilende</td></tr>
+                                <tr><td>Espen G</td><td>Skarp Kritiker</td></tr>
+                                <tr><td>Karl Nygård</td><td>Bondefyr Jordnær</td></tr>
+                                <tr><td>Kjetil G</td><td>Opprører Utfordrer</td></tr>
+                                <tr><td>Miran</td><td>Lærling Ung</td></tr>
+                                <tr><td>Per</td><td>Unge Talsmann</td></tr>
+                                <tr><td>Terje Bogard</td><td>Diskret Transport</td></tr>
+                                <tr><td>Torstein Sunde</td><td>Erfaren Hjelper</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Individuelle familie-innhold -->
+            <div id="abrahamsen" class="family-content">
+                <h2>ABRAHAMSEN</h2>
+                <p class="family-motto">"Vi ser alt for BOB"</p>
+                
+                <table class="member-table">
+                    <thead>
+                        <tr>
+                            <th>Navn</th>
+                            <th>Rolle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Alf</td><td>Innviklet Ungdom</td></tr>
+                        <tr><td>Anja</td><td>Fasade Representant</td></tr>
+                        <tr><td>Bente</td><td>Informasjonssøker Øyne</td></tr>
+                        <tr><td>Eirik Rustad</td><td>Politisk Ambisjon</td></tr>
+                        <tr><td>Elin V</td><td>Observatør Lokalavisen</td></tr>
+                        <tr><td>Hanne S H</td><td>Informasjons-kanal Informasjon</td></tr>
+                        <tr><td>Knut Erik</td><td>Informant Overvåker</td></tr>
+                        <tr><td>Åsmund</td><td>Informant Lojal</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="skauggaard" class="family-content">
+                <h2>SKAUGGÅRD</h2>
+                <p class="family-motto">"Penger er makt, makt er BOB"</p>
+                
+                <table class="member-table">
+                    <thead>
+                        <tr>
+                            <th>Navn</th>
+                            <th>Rolle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Camilla</td><td>Brud Kandidat</td></tr>
+                        <tr><td>Charlotte</td><td>Vet mangt</td></tr>
+                        <tr><td>Christer Voreland</td><td>Ressurssterk Pengemann</td></tr>
+                        <tr><td>Eirik Alsaker</td><td>Ambisjon Penger</td></tr>
+                        <tr><td>Jørgen Skauge</td><td>Pengemann Risiko</td></tr>
+                        <tr><td>Knut B</td><td>Sikkerhet Diskret</td></tr>
+                        <tr><td>Magnus</td><td>Muskel Braker</td></tr>
+                        <tr><td>Martin</td><td>Ressurs Fikser</td></tr>
+                        <tr><td>Nikolai</td><td>Eldste råd</td></tr>
+                        <tr><td>Petter</td><td>Hjelper Betrodde</td></tr>
+                        <tr><td>Runar</td><td>Matleverandør Uenige</td></tr>
+                        <tr><td>Silje</td><td>Brud Kandidat</td></tr>
+                        <tr><td>Thomas B</td><td>Papirflytter Shipping</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="haaland" class="family-content">
+                <h2>HAALAND</h2>
+                <p class="family-motto">"Bare de sterke overlever for BOB"</p>
+                
+                <table class="member-table">
+                    <thead>
+                        <tr>
+                            <th>Navn</th>
+                            <th>Rolle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Anders S</td><td>Muskel Rekruttør</td></tr>
+                        <tr><td>Christian Skollevold</td><td>Muskel Utenfor</td></tr>
+                        <tr><td>Christine Vatne</td><td>Praktisk Hjelper</td></tr>
+                        <tr><td>Esben S</td><td>Muskel Loyal</td></tr>
+                        <tr><td>Hilde Knutsen</td><td>Rekruttør Sosial</td></tr>
+                        <tr><td>Johnny</td><td>Muskel Voldsom</td></tr>
+                        <tr><td>Maria S</td><td>Rekruttering Trenerrollen</td></tr>
+                        <tr><td>Oscar</td><td>Beskytter Høyre</td></tr>
+                        <tr><td>Rolf</td><td>Rekruttør Støtte</td></tr>
+                        <tr><td>Sven Bouwman</td><td>Skjult Kjenner</td></tr>
+                        <tr><td>Sverre Juul Hansen</td><td>Hjelper Kjenner</td></tr>
+                        <tr><td>Tim B</td><td>Ivrig Rekrutt</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="kvinlaug" class="family-content">
+                <h2>KVINLAUG</h2>
+                <p class="family-motto">"Det praktiske arbeidet er BOBs arbeid"</p>
+                
+                <table class="member-table">
+                    <thead>
+                        <tr>
+                            <th>Navn</th>
+                            <th>Rolle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Alena</td><td>Ung Ambisiøs</td></tr>
+                        <tr><td>Arild Langseth</td><td>Praktisk Logistikk</td></tr>
+                        <tr><td>Elin PL</td><td>Praktisk Hjemmeværende</td></tr>
+                        <tr><td>Jørn André Berg</td><td>Praktisk Verksted</td></tr>
+                        <tr><td>Kjetil S</td><td>Hjelper Fotsoldat</td></tr>
+                        <tr><td>Margrete</td><td>Støttespiller Jørn</td></tr>
+                        <tr><td>Sarah S</td><td>Fasadevokter Galleriet</td></tr>
+                        <tr><td>Stein Kåre</td><td>Bygge vedlikeholde</td></tr>
+                        <tr><td>Stian Brødsjø</td><td>Hjelper Kvinlaug</td></tr>
+                        <tr><td>Terje Bergh</td><td>Transportør Fisker</td></tr>
+                        <tr><td>Thomas Grimsby</td><td>Hjelper Kvinlaug</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <div id="lunde" class="family-content">
+                <h2>LUNDE</h2>
+                <p class="family-motto">"BOBs jord er hellig"</p>
+                
+                <table class="member-table">
+                    <thead>
+                        <tr>
+                            <th>Navn</th>
+                            <th>Rolle</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Arne Carlsen</td><td>Offentlig Stemme</td></tr>
+                        <tr><td>Beate</td><td>Ung Tvilende</td></tr>
+                        <tr><td>Benedicte</td><td>Bonde Praktisk</td></tr>
+                        <tr><td>Daniel Kumar</td><td>Infiltrert Informant</td></tr>
+                        <tr><td>Esben Er</td><td>Unnvikende Tvilende</td></tr>
+                        <tr><td>Espen G</td><td>Skarp Kritiker</td></tr>
+                        <tr><td>Karl Nygård</td><td>Bondefyr Jordnær</td></tr>
+                        <tr><td>Kjetil G</td><td>Opprører Utfordrer</td></tr>
+                        <tr><td>Miran</td><td>Lærling Ung</td></tr>
+                        <tr><td>Per</td><td>Unge Talsmann</td></tr>
+                        <tr><td>Terje Bogard</td><td>Diskret Transport</td></tr>
+                        <tr><td>Torstein Sunde</td><td>Erfaren Hjelper</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Funksjon for å bytte mellom meny-seksjonar
+        function showSection(sectionId, element) {
+            // Skjul alle seksjonar
+            var sections = document.querySelectorAll('.section');
+            sections.forEach(function(sec) {
+                sec.classList.remove('active');
+            });
+            // Fjerne active klasse frå alle meny-item
+            var menuItems = document.querySelectorAll('.menu-item');
+            menuItems.forEach(function(item) {
+                item.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+            element.classList.add('active');
+        }
+        
+        // Funksjon for å bytte mellom familie-innhald
+        function showFamily(familyId, element) {
+            // Skjul alle familie-innhald
+            var families = document.querySelectorAll('.family-content');
+            families.forEach(function(fam) {
+                fam.classList.remove('active');
+            });
+            // Fjerne active klasse frå alle familie-knappar
+            var buttons = document.querySelectorAll('.family-button');
+            buttons.forEach(function(btn) {
+                btn.classList.remove('active');
+            });
+            document.getElementById(familyId).classList.add('active');
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>
