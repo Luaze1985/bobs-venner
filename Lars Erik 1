@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOBs Sekt - Festinvitasjon</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #ff0000;
+            font-family: 'Courier New', monospace;
+            margin: 0;
+            padding: 10px;
+            text-align: center;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 2px solid #ff0000;
+            padding: 15px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .menu-item {
+            padding: 10px 15px;
+            border: 2px solid #ff0000;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: transparent;
+            transition: background-color 0.3s;
+        }
+
+        .menu-item:hover, .menu-item.active {
+            background-color: rgba(255, 0, 0, 0.2);
+        }
+
+        .section {
+            display: none;
+            text-align: left;
+            padding: 10px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .family-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+
+        .family-button {
+            padding: 12px 20px;
+            border: 2px solid #ff0000;
+            background-color: #200000;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .family-button:hover, .family-button.active {
+            background-color: rgba(255, 0, 0, 0.3);
+            transform: scale(1.05);
+        }
+
+        .family-content {
+            display: none;
+            margin-top: 20px;
+            border: 1px dashed #ff0000;
+            padding: 15px;
+            text-align: left;
+        }
+
+        .family-content.active {
+            display: block;
+        }
+
+        @media (max-width: 600px) {
+            nav {
+                flex-direction: column;
+            }
+
+            .menu-item {
+                width: 90%;
+                margin: 0 auto;
+            }
+
+            .family-buttons {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Velkommen til BOBs Sekt</h1>
+        <p class="intro">Forbered deg på en reise gjennom tid og dimensjoner.</p>
+        <p class="intro">Din familie er utvalgt til å delta i BOBs hellige ritual.</p>
+
+        <div class="ceremony-text">
+            Sektleder Lars Erik fyller 40. BOB krever et offer og nye utvalgte må tre frem.<br>
+            <strong>Hvem skal bli ny leder og Bobs brud?</strong>
+        </div>
+
+        <nav>
+            <div class="menu-item active" role="button" tabindex="0" onclick="showSection('hovedside', this)">Hovedside</div>
+            <div class="menu-item" role="button" tabindex="0" onclick="showSection('sekten', this)">Sektens Mål</div>
+            <div class="menu-item" role="button" tabindex="0" onclick="showSection('bud', this)">BOBs 5 Bud</div>
+            <div class="menu-item" role="button" tabindex="0" onclick="showSection('lag', this)">Lag og Roller</div>
+        </nav>
+
+        <div id="hovedside" class="section active">
+            <p>Velkommen til en kveld fylt med intriger, maktkamp og hemmeligheter...</p>
+        </div>
+
+        <div id="sekten" class="section">
+            <p>Sektens mål er...</p>
+        </div>
+
+        <div id="bud" class="section">
+            <p>BOBs 5 bud er...</p>
+        </div>
+
+        <div id="lag" class="section">
+            <div class="family-buttons">
+                <button class="family-button active" onclick="showFamily('alle', this)">Alle Lag</button>
+            </div>
+            <div id="alle" class="family-content active">
+                <p>Innhold om alle lag</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId, element) {
+            document.querySelectorAll('.section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.menu-item').forEach(item => item.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
+            element.classList.add('active');
+        }
+
+        function showFamily(familyId, element) {
+            document.querySelectorAll('.family-content').forEach(fam => fam.classList.remove('active'));
+            document.querySelectorAll('.family-button').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(familyId).classList.add('active');
+            element.classList.add('active');
+        }
+    </script>
+</body>
+</html>
